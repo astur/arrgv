@@ -1,6 +1,6 @@
 {
   "name": "arrgv",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Parsing string to array of args like node on bash do.",
   "main": "index.js",
   "scripts": {

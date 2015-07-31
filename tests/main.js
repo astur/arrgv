@@ -142,3 +142,20 @@ tape.test('slashes', function (t) {
 
     t.end();
 });
+
+tape.test('errors', function (t) {
+
+    t.throws(function(){arrgv('aaa"bbb')},
+        SyntaxError,
+        'double quotes must be closed');
+
+    t.throws(function(){arrgv("aaa'bbb")},
+        SyntaxError,
+        'single quotes must be closed');
+
+    t.throws(function(){arrgv('aaa\\')},
+        SyntaxError,
+        'end of string must not to be escaped');
+
+    t.end();
+});

@@ -1,0 +1,15 @@
+{
+  "name": "arrgv",
+  "version": "0.0.1",
+  "description": "Parsing string to array of args like node on bash do.",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape tests/*.js | tap-spec"
+  },
+  "devDependencies": {
+    "tap-spec": "^4.0.2",
+    "tape": "^4.0.1"
+  },
+  "author": "astur <astur@yandex.ru> (http://kozlov.am/)",
+  "license": "MIT"
+}

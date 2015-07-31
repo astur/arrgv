@@ -2,6 +2,9 @@
 
 Parsing string to array of args like node on bash do.
 
+[![Build Status][travis-image]][travis-url]
+[![NPM version][npm-image]][npm-url]
+
 When you type something like `node script.js bla bla bla` in shell and do `myArgs = process.argv.slice(2)` you get the same. All slashes, quotes and special symbols are handled same way.
 
 ## Install
@@ -38,3 +41,8 @@ console.log(arrgv(str));
 ## License
 
 MIT
+
+[travis-url]: https://travis-ci.org/astur/arrgv
+[travis-image]: https://travis-ci.org/astur/arrgv.svg?branch=master
+[npm-url]: https://npmjs.org/package/arrgv
+[npm-image]: https://img.shields.io/npm/v/arrgv.svg

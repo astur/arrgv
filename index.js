@@ -9,78 +9,46 @@ module.exports = function(str){
     var backSlash = false;
     var buffer = '';
     for (var i=0, len=str.length; i<len; i++) {
-        var c = str[i];
-        var cc = str[i+1];
-        if (c == "'") {
-            if (sQuoted) {
-                sQuoted = false;
-            } else if (backSlash) {
-                buffer += c;
-                backSlash = false;
-            } else if (dQuoted) {
-                buffer += c;
-            } else {
+        if (sQuoted && str[i] === "'") {
+            sQuoted = false;
+            continue;
+        }
+        if (!sQuoted && !dQuoted && !backSlash) {
+            switch (str[i]) {
+            case "'":
                 sQuoted = true;
-            }
-            continue;
-        }
-
-        if (c == '"') {
-            if (sQuoted) {
-                buffer += c;
-            } else if (backSlash) {
-                buffer += c;
-                backSlash = false;
-            } else if (dQuoted) {
-                dQuoted = false;
-            } else {
+                continue;
+            case '"':
                 dQuoted = true;
-            }
-            continue;
-        }
-
-        if (c == '\\') {
-            if (sQuoted) {
-                buffer += c;
-            } else if (backSlash) {
-                buffer += c;
-                backSlash = false;
-            } else if (!dQuoted) {
+                continue;
+            case '\\':
                 backSlash = true;
-            } else if (~['"', '`', '$', '\\'].indexOf(cc)) {
-                backSlash = true;
-            } else {
-                buffer += c;
-                backSlash = true;
-            }
-            continue;
-        }
-
-        if (~['\b', '\f', '\n', '\r', '\t', ' '].indexOf(c)) {
-            if (sQuoted) {
-                buffer += c;
-            } else if (backSlash) {
-                buffer += c;
-                backSlash = false;
-            } else if (dQuoted) {
-                buffer += c;
-            } else {
+                continue;
+            case '\b':
+            case '\f':
+            case '\n':
+            case '\r':
+            case '\t':
+            case ' ':
                 if (buffer.length) res.push(buffer);
                 buffer = '';
+                continue;
             }
+        }
+        if (!sQuoted && dQuoted && !backSlash && str[i] == '"') {
+            dQuoted = false;
             continue;
         }
-
-        if (sQuoted) {
-            buffer += c;
-        } else if (backSlash) {
-            buffer += c;
-            backSlash = false;
-        } else if (dQuoted) {
-            buffer += c;
-        } else {
-            buffer += c;
+        if (!sQuoted && dQuoted && !backSlash && str[i] == '\\') {
+            backSlash = true;
+            if (['"', '`', '$', '\\'].indexOf(str[i+1]) !== -1) {
+                continue;
+            }
         }
+        if (backSlash) {
+            backSlash = false;
+        }
+        buffer += str[i];
     }
     if (buffer.length) res.push(buffer);
     if (dQuoted) throw new SyntaxError('unexpected end of string while looking for matching double quote');

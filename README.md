@@ -45,4 +45,4 @@ MIT
 [travis-url]: https://travis-ci.org/astur/arrgv
 [travis-image]: https://travis-ci.org/astur/arrgv.svg?branch=master
 [npm-url]: https://npmjs.org/package/arrgv
-[npm-image]: https://img.shields.io/npm/v/arrgv.svg
+[npm-image]: https://badge.fury.io/js/arrgv.svg

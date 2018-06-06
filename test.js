@@ -15,6 +15,7 @@ test('return array', t => {
 
 test('split', t => {
     t.deepEqual(arrgv('aaa bbb ccc'), ['aaa', 'bbb', 'ccc'], 'splits easy args by space');
+    t.deepEqual(arrgv('  aaa bbb ccc  '), ['aaa', 'bbb', 'ccc'], 'trailing and leading spaces do not counts');
     t.deepEqual(arrgv('aaa   bbb    ccc'), ['aaa', 'bbb', 'ccc'], 'multi space works as single');
 });
 

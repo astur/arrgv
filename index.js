@@ -1,74 +1,59 @@
-module.exports = function(str){
-    var res = [];
-    if (arguments.length === 0 ||
-        typeof str !== 'string' ||
-        str === '') {
-        return res;
-    }
+module.exports = str => {
+    const res = [];
 
-    var sQuoted = false;
-    var dQuoted = false;
-    var backSlash = false;
-    var buffer = '';
-    for (var i=0, len=str.length; i<len; i++) {
-        if (sQuoted && str[i] === "'") {
+    if(!str || typeof str !== 'string') return res;
+
+    let sQuoted = false;
+    let dQuoted = false;
+    let backSlash = false;
+    let buffer = '';
+
+    str.split('').forEach((v, i, s) => {
+        if(sQuoted && v === `'`){
             sQuoted = false;
-            continue;
+            return;
         }
-        if (!sQuoted && !dQuoted && !backSlash) {
-            switch (str[i]) {
-            case "'":
+        if(!sQuoted && !dQuoted && !backSlash){
+            if(v === `'`){
                 sQuoted = true;
-                continue;
-            case '"':
+                return;
+            }
+            if(v === '"'){
                 dQuoted = true;
-                continue;
-            case '\\':
+                return;
+            }
+            if(v === '\\'){
                 backSlash = true;
-                continue;
-            case '\b':
-            case '\f':
-            case '\n':
-            case '\r':
-            case '\t':
-            case ' ':
-                if (buffer.length) {
+                return;
+            }
+            if(['\b', '\f', '\n', '\r', '\t', ' '].includes(v)){
+                if(buffer.length){
                     res.push(buffer);
                 }
                 buffer = '';
-                continue;
+                return;
             }
         }
-        if (!sQuoted && dQuoted && !backSlash && str[i] === '"') {
+        if(!sQuoted && dQuoted && !backSlash && v === '"'){
             dQuoted = false;
-            continue;
+            return;
         }
-        if (!sQuoted && dQuoted && !backSlash && str[i] === '\\') {
+        if(!sQuoted && dQuoted && !backSlash && v === '\\'){
             backSlash = true;
-            if (['"', '`', '$', '\\'].indexOf(str[i+1]) !== -1) {
-                continue;
+            if(['"', '`', '$', '\\'].includes(s[i + 1])){
+                return;
             }
         }
-        if (backSlash) {
+        if(backSlash){
             backSlash = false;
         }
-        buffer += str[i];
-    }
-    if (buffer.length) {
-        res.push(buffer);
-    }
-    if (dQuoted) {
-        throw new SyntaxError('unexpected end of string while looking for matching double quote');
-    }
-    if (sQuoted) {
-        throw new SyntaxError('unexpected end of string while looking for matching single quote');
-    }
-    if (backSlash) {
-        throw new SyntaxError('unexpected end of string right after slash');
-    }
+        buffer += v;
+    });
+
+    if(buffer.length) res.push(buffer);
+    if(dQuoted) throw new SyntaxError('unexpected end of string while looking for matching double quote');
+    if(sQuoted) throw new SyntaxError('unexpected end of string while looking for matching single quote');
+    if(backSlash) throw new SyntaxError('unexpected end of string right after slash');
+
     return res;
 };
-
-if (require.main === module) {
-    console.dir(process.argv);
-}

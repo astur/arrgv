@@ -4,7 +4,7 @@
   "description": "Parsing string to array of args like node on bash do.",
   "main": "index.js",
   "scripts": {
-    "test": "jshint . --exclude node_modules --reporter node_modules/jshint-stylish/ ; tape tests/*.js | tap-spec"
+    "test": "jshint . --exclude node_modules --reporter node_modules/jshint-stylish/ $$ ava"
   },
   "repository": {
     "type": "git",
@@ -15,10 +15,9 @@
   },
   "homepage": "https://github.com/astur/arrgv",
   "devDependencies": {
+    "ava": "^0.25.0",
     "jshint": "^2.8.0",
-    "jshint-stylish": "^2.0.1",
-    "tap-spec": "^4.0.2",
-    "tape": "^4.0.1"
+    "jshint-stylish": "^2.0.1"
   },
   "author": "astur <astur@yandex.ru> (http://kozlov.am/)",
   "license": "MIT"

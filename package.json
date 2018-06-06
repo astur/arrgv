@@ -4,7 +4,7 @@
   "description": "Parsing string to array of args like node on bash do.",
   "main": "index.js",
   "scripts": {
-    "test": "eslint . $$ ava"
+    "test": "eslint . && ava"
   },
   "repository": {
     "type": "git",

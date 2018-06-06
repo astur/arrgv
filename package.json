@@ -19,5 +19,14 @@
     "eslint": "^4.19.1",
     "eslint-config-astur": "0.0.2"
   },
+  "keywords": [
+    "arguments",
+    "cli",
+    "parcing",
+    "testing",
+    "options",
+    "args",
+    "argv"
+  ],
   "license": "MIT"
 }

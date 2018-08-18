@@ -27,7 +27,7 @@ module.exports = str => {
                 return;
             }
             if(['\b', '\f', '\n', '\r', '\t', ' '].includes(v)){
-                if(buffer.length){
+                if(buffer.length > 0){
                     res.push(buffer);
                 }
                 buffer = '';
@@ -50,7 +50,7 @@ module.exports = str => {
         buffer += v;
     });
 
-    if(buffer.length) res.push(buffer);
+    if(buffer.length > 0) res.push(buffer);
     if(dQuoted) throw new SyntaxError('unexpected end of string while looking for matching double quote');
     if(sQuoted) throw new SyntaxError('unexpected end of string while looking for matching single quote');
     if(backSlash) throw new SyntaxError('unexpected end of string right after slash');

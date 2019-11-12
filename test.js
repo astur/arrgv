@@ -38,6 +38,7 @@ test('single quotes', t => {
     t.deepEqual(arrgv(`aaa bbb' 'ccc ddd`), ['aaa', 'bbb ccc', 'ddd'], 'multi word args with single quoted space');
     t.deepEqual(arrgv(`aaa b'bb cc'c ddd`), ['aaa', 'bbb ccc', 'ddd'], 'single quotes in words make string arg');
     t.deepEqual(arrgv(`aaa '' bbb`), ['aaa', '', 'bbb'], 'empty string in single quotes');
+    t.deepEqual(arrgv(`aaa ''`), ['aaa', ''], 'empty string in single quotes on last position');
 });
 
 test('spaces', t => {

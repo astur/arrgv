@@ -27,6 +27,7 @@ test('double quotes', t => {
     t.deepEqual(arrgv('aaa bbb" "ccc ddd'), ['aaa', 'bbb ccc', 'ddd'], 'multi word args with double quoted space');
     t.deepEqual(arrgv('aaa b"bb cc"c ddd'), ['aaa', 'bbb ccc', 'ddd'], 'double quotes in words make string arg');
     t.deepEqual(arrgv('aaa "" bbb'), ['aaa', '', 'bbb'], 'empty string in double quotes');
+    t.deepEqual(arrgv('aaa ""'), ['aaa', ''], 'empty string in double quotes on last position');
 });
 
 test('single quotes', t => {

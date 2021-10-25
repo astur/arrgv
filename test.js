@@ -1,5 +1,5 @@
-const test = require('ava');
-const arrgv = require('.');
+import test from 'ava';
+import arrgv from './index.js';
 
 test('return array', t => {
     t.true(Array.isArray(arrgv()), 'array must be returned when no args');
@@ -62,12 +62,22 @@ test('slashes', t => {
 test('errors', t => {
     t.throws(() => {
         arrgv('aaa"bbb');
-    }, SyntaxError, 'double quotes must be closed');
+    }, {
+        message: 'unexpected end of string while looking for matching double quote',
+        instanceOf: SyntaxError
+    });
+
     t.throws(() => {
         arrgv('aaa\'bbb');
-    }, SyntaxError, 'single quotes must be closed');
+    }, {
+        message: 'unexpected end of string while looking for matching single quote',
+        instanceOf: SyntaxError
+    });
+
     t.throws(() => {
         arrgv('aaa\\');
-    }, SyntaxError, 'end of string must not to be escaped');
+    }, {
+        message: 'unexpected end of string right after slash',
+        instanceOf: SyntaxError
+    });
 });
-

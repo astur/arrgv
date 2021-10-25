@@ -1,4 +1,7 @@
-module.exports = str => {
+/** @param {string} str  */
+export default function parseArrgv (str) {
+
+    /** @type {string[]} */
     const res = [];
 
     if(!str || typeof str !== 'string') return res;
